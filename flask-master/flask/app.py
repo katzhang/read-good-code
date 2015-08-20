@@ -8,6 +8,12 @@
     :copyright: (c) 2015 by Armin Ronacher.
     :license: BSD, see LICENSE for more details.
 """
+
+##? What is WSGO?
+## Python's standardized interface between web servers and web applications of frameworks.
+
+## Three levels of imports: standard library, external library and other files using relative imports
+
 import os
 import sys
 from threading import Lock
@@ -38,16 +44,18 @@ from ._compat import reraise, string_types, text_type, integer_types, iterkeys
 # a lock used for logger initialization
 _logger_lock = Lock()
 
+
 # a singleton sentinel value for parameter defaults
-_sentinel = object()
+_sentinel = object() ## object: the most basic type in Python
 
-
+## Make sure always returning a timedelta instance.
+## More on timedelta: https://docs.python.org/2/library/datetime.html#timedelta-objects
 def _make_timedelta(value):
     if not isinstance(value, timedelta):
         return timedelta(seconds=value)
     return value
 
-
+##? What is "self" in the wrapper_func?
 def setupmethod(f):
     """Wraps a method so that it performs a check in debug mode if the
     first request was already handled.
@@ -62,7 +70,11 @@ def setupmethod(f):
                 'database models and everything related at a central place '
                 'before the application starts serving requests.')
         return f(self, *args, **kwargs)
-    return update_wrapper(wrapper_func, f)
+    return update_wrapper(wrapper_func, f) ## update_wrapper copies or adds attributes from original function(wrapped) to the wrapper function
+
+
+##? How update_wrapper works here?
+
 
 
 class Flask(_PackageBoundObject):
@@ -152,10 +164,12 @@ class Flask(_PackageBoundObject):
     #: The class that is used for request objects.  See :class:`~flask.Request`
     #: for more information.
     request_class = Request
+    ## "Request" as a class variable of Flask
 
     #: The class that is used for response objects.  See
     #: :class:`~flask.Response` for more information.
     response_class = Response
+    ## "Response" as a class variable of Flask
 
     #: The class that is used for the Jinja environment.
     #:

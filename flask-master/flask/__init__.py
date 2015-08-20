@@ -18,6 +18,10 @@ from werkzeug.exceptions import abort
 from werkzeug.utils import redirect
 from jinja2 import Markup, escape
 
+##? Why these packages have a prefix "."?
+## Relative imports: https://www.python.org/dev/peps/pep-0328/
+
+
 from .app import Flask, Request, Response
 from .config import Config
 from .helpers import url_for, flash, send_file, send_from_directory, \
@@ -35,6 +39,8 @@ from .signals import signals_available, template_rendered, request_started, \
      request_finished, got_request_exception, request_tearing_down, \
      appcontext_tearing_down, appcontext_pushed, \
      appcontext_popped, message_flashed, before_render_template
+
+## Here is what Flask exposes as interface.
 
 # We're not exposing the actual json module but a convenient wrapper around
 # it.
