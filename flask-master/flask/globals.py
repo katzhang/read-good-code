@@ -51,6 +51,9 @@ def _find_app():
         raise RuntimeError(_app_ctx_err_msg)
     return top.app
 
+## Threads share memory and state of the process - meaning they share the code instructions
+## and the values of the global variables
+## More on threads: http://www.python-course.eu/threads.php
 
 # context locals
 _request_ctx_stack = LocalStack()

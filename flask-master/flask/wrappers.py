@@ -59,7 +59,9 @@ class Request(RequestBase):
     # module functionality.
     _is_old_module = False
 
-    @property
+    ## Unless a class variable is a boolean value, all vars are initialized as "None"
+
+    @property ## "property" is a class decorator.
     def max_content_length(self):
         """Read-only view of the ``MAX_CONTENT_LENGTH`` config key."""
         ctx = _request_ctx_stack.top
@@ -82,6 +84,8 @@ class Request(RequestBase):
         to an actual module.  This is deprecated functionality, use blueprints
         instead.
         """
+        ## In Python you could import inside a function. It's only imported the first time that function is run.
+        ## http://stackoverflow.com/questions/3095071/in-python-what-happens-when-you-import-inside-of-a-function
         from warnings import warn
         warn(DeprecationWarning('modules were deprecated in favor of '
                                 'blueprints.  Use request.blueprint '
@@ -147,6 +151,8 @@ class Request(RequestBase):
         # fits our general approach of being nice in what we accept
         # and strict in what we send out.
         request_charset = self.mimetype_params.get('charset')
+        ## Use try-catch block instead of check first.
+        ## The  EAFP approach in Python: http://stackoverflow.com/questions/6092992/why-is-it-easier-to-ask-forgiveness-than-permission-in-python-but-not-in-java
         try:
             data = _get_data(self, cache)
             if request_charset is not None:
